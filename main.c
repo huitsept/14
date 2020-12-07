@@ -9,24 +9,25 @@ struct Book {
 };
 
 int main(int argc, char *argv[]) {
-	struct Book *p;
-	p = (struct Book*)malloc(2*sizeof(struct Book));
+	int i;
+	struct Book **bookshelf;
 	
-	if(p == NULL){
-		printf("memory allocation error\n");
-		return;
-	}
+	bookshelf = (struct Book**)malloc(3*sizeof(struct Book*));
 	
-	p->number = 1;
-	strcpy(p->title, "C programming");
+	for(i=0;i<3;i++)
+	   bookshelf[i]=malloc(10*sizeof(struct Book));
+	 bookshelf[1][3].number =5;
+    strcpy(bookshelf[1][3].title, "C++programming");
 
-	(p+1)->number = 2;
-	strcpy((p+1)->title, "electronics");
+    (bookshelf[2]+4)->number =3;   
+    strcpy((bookshelf[2]+4)->title, "Cprogramming Theory");
 
-	printf("%s %s\n", p->title, (p+1)->title);
+    printf("Book(1,3) :%i, %s\n", (bookshelf[1]+3)->number,(bookshelf[1]+3)->title );
+    printf("Book(2,4) :%i, %s\n", bookshelf[2][4].number,bookshelf[2][4].title );
 
-	free(p);
-
-
+	for(i=0;i<3;i++)
+       free(bookshelf[i]);
+	free(bookshelf); 
+	
 	return 0;
 }
